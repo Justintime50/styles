@@ -42,6 +42,7 @@ This document is fluid and many changes will be coming over the next few months 
 * Programs should be made up of many small classes
 * OCP: Open-Closed Principle, classes are open to extension but closed to modification
 * DIP: Dependency Inversion Principle, classes should depend on abstractions, not concrete details
+* Using instance variables is a powerful way to cut down on passing large amounts of parameters around your app when everything is stored within the `self` namespace, it can be easily referenced from any instance method and seemingly numberless variables can be associated with `self` (eg: Python)
 
 ### Comments
 
@@ -72,6 +73,7 @@ This document is fluid and many changes will be coming over the next few months 
 * Have a single return statement (don’t return early)
 * Return statements should have a line break betwen them and the content above to clearly define the function is now complete and to separate focuses
 * Avoid returning null, avoid passing null as a parameter
+* Avoid using class methods where possible and instead use instance or static methods.
 
 ### Meta
 
