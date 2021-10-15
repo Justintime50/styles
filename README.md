@@ -22,6 +22,10 @@ This document is fluid and many changes will be coming over the next few months 
 * Objects expose behavior and hide data. Data structures expose data and have no significant behavior
 * When creating software, assume you are creating it for someone else to use. Allow for configuration, use CLI flags/env vars where possible, document how to use your tool, use simple interfaces, and build it so that anyone can use it and not just you and your one use-case
     * Keep internal variables private, that way you can change their type of implementation on a whim. Make stable, consistent interfaces where users can then plug into. Every variable doesn’t need a getter and setter
+* Use the Model, View, Controller framework (MVC), especially for frontend websites
+* Use the Singleton design pattern when possible
+* Routes -> Views/Actions -> Service -> Repo -> DB
+* Use frontend and backend validation, this is important because when you have both, we can skip sending an API call for instance when we know there is bad data. We will then only send the payload across once the data is valid. Backend validation is important as the source of truth and because things like developer tools in a browser can defeat frontend validations
 
 ### Checklist
 
@@ -86,13 +90,14 @@ This document is fluid and many changes will be coming over the next few months 
 * Don’t pack lists or block pack them, always unpack lists so that each item is on its own line. It’s easier to read vertically than it is horizontally 
 * Use object literals over complex if/else or switch/case statements
 * Use implicit true statements when possible (eg: `if im_awesome is True:` — vs — `if im_awesome:`)
-* When making string comparisons, lowercase and strip the whitespace on the strings you are comparing
+* When making string comparisons, lowercase/uppercase and strip the whitespace on the strings you are comparing
+* Always sort your lists unless there is an explicit reason not to. This ensures that diffs stay small and sorted lists are much easier to maintain and find info in
 
 ### Naming
 
 * Don’t try to be smart, spell things out (eg: variable and function names)
     * Abbreviating or coming up with clever names only leads to more taxing code scanning by the next engineer
-* Use constants or variables to define integers and other strings that aren’t easily identifiable (vs just passing them inline as parameters without declaring what they are)
+* Use constants or variables to define integers and other strings that aren’t easily identifiable (vs just passing them inline as parameters without declaring what they are). A great example of a snippet of code where this could be useful is instead of directly returning the following, you could assign it a descriptive variable and return that clean variable instead: `{k: cls._objects_to_ids(v) for k, v in six.iteritems(params)}`
 
 ### Open Source
 
@@ -142,6 +147,9 @@ The following is a checklist of items that every website should have:
 * **Linter:** [HTMLHint](https://github.com/htmlhint/HTMLHint)
 
 #### Styles
+
+* Don't repeat `&nbsp;` over and over when you want to space something, use a CSS class in a `<span>` to do this instead
+* Avoid using inline CSS styles (use CSS classes and external stylesheets)
 
 The following is a checklist of items that every website should have:
 * Site must have a Favicon
@@ -203,6 +211,7 @@ plutil local.myfile.plist
 * Use Black for formatting (passing the `--skip-string-normalization` and `--line-length 120` options)
     * Use other methods to ensure `Black` plays nicely with `Flake8` and `iSort`
 * You can’t kill threads easily in Python, keep this in mind when playing with concurrency
+* Do not define raw paths, you must use the `os.path.join()` function as this will automatically build the paths for you depending on what OS you're on (eg: slashes on Windows)
 
 ### Ruby
 
