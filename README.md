@@ -78,6 +78,7 @@ This document is fluid and many changes will be coming over the next few months 
 * Return statements should have a line break betwen them and the content above to clearly define the function is now complete and to separate focuses
 * Avoid returning null, avoid passing null as a parameter
 * Avoid using class methods where possible and instead use instance or static methods.
+* Don’t use “selector arguments” or booleans for arguments to a function because this breaks the single responsibility principle. If your function does something different depending on a Boolean parameter, it really does two things and therefore the name will be misleading. Instead, you should break up the function into smaller functions, each doing one branch of the boolean flag
 
 ### Meta
 
@@ -86,18 +87,23 @@ This document is fluid and many changes will be coming over the next few months 
 * Files shouldn’t exceed 200 lines of code
 * Line lengths should not exceed 120 chars
 * Use trailing commas where possible so that the list can easily grow in the future while keeping the next diff small
-* Create a consistent lexicon and share it across the company for things like names (eg: fetch, get, retrieve all ultimately mean the same thing, which will you use across your code base?)
+* Create a consistent lexicon and share it across the company for things like names (eg: fetch, get, retrieve all ultimately mean the same thing, which will you use across your code base?). If you do something someway, do it that way everywhere. This leans back to the principle of least surprise
 * Don’t pack lists or block pack them, always unpack lists so that each item is on its own line. It’s easier to read vertically than it is horizontally 
 * Use object literals over complex if/else or switch/case statements
 * Use implicit true statements when possible (eg: `if im_awesome is True:` — vs — `if im_awesome:`)
 * When making string comparisons, lowercase/uppercase and strip the whitespace on the strings you are comparing
 * Always sort your lists unless there is an explicit reason not to. This ensures that diffs stay small and sorted lists are much easier to maintain and find info in
+* Positives are easier to understand than negatives, in the case of if/else statements, have the “if” section be the positive logic
+* Don’t include dead code. This could be code in an if/else block that will never be reached or code in a try/except block that can never throw
+* Think of “vertical separation”, variables and functions should be defined close to where they are used, not hundreds of lines apart
+* General purpose static functions should not be contained in a class since they typically aren’t actually coupled to the class
+* Shoot for brevity, be precise! Don’t use a float for currency (break it down into an integer for "cents"), don’t avoid adding lock/transaction management on concurrency, etc - “Don’t be lazy about the precision of your decision”
 
 ### Naming
 
 * Don’t try to be smart, spell things out (eg: variable and function names)
     * Abbreviating or coming up with clever names only leads to more taxing code scanning by the next engineer
-* Use constants or variables to define integers and other strings that aren’t easily identifiable (vs just passing them inline as parameters without declaring what they are). A great example of a snippet of code where this could be useful is instead of directly returning the following, you could assign it a descriptive variable and return that clean variable instead: `{k: cls._objects_to_ids(v) for k, v in six.iteritems(params)}`
+* Use constants or variables to define integers and other strings that aren’t easily identifiable (vs just passing them inline as parameters without declaring what they are). A great example of a snippet of code where this could be useful is instead of directly returning the following, you could assign it a descriptive variable and return that clean variable instead: `{k: cls._objects_to_ids(v) for k, v in six.iteritems(params)}`. This also goes for having multiple and/or statements, assign them to a variable to help describe intent
 
 ### Open Source
 
