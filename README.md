@@ -66,6 +66,10 @@ This document is fluid and many changes will be coming over the next few months 
 * Don’t ignore one-off failures in concurrency, typically it is an indicator your system isn’t built well
 * Make thread based code “pluggable”, where the logic and the threading happen separately and can be easily configured
 
+### Databases
+
+* All inserts/updates must be run inside a transaction. Validate your change before committing it.
+
 ### Error Handling
 
 * Extract try/catch block bodies into their own functions so that error processing can be separated from normal logic
@@ -156,6 +160,7 @@ The following is a checklist of items that every website should have:
 
 * Don't repeat `&nbsp;` over and over when you want to space something, use a CSS class in a `<span>` to do this instead
 * Avoid using inline CSS styles (use CSS classes and external stylesheets)
+* `<br />` tags should only be contained inside a set of `<p>` tags. CSS classes should lbe used otherwise to provide vertical spacing
 
 The following is a checklist of items that every website should have:
 * Site must have a Favicon
@@ -218,6 +223,20 @@ plutil local.myfile.plist
     * Use other methods to ensure `Black` plays nicely with `Flake8` and `iSort`
 * You can’t kill threads easily in Python, keep this in mind when playing with concurrency
 * Do not define raw paths, you must use the `os.path.join()` function as this will automatically build the paths for you depending on what OS you're on (eg: slashes on Windows)
+* Use `datetime.timedelta` to offset a date which will automatically roll over months and years as needed. Do not add `+6` to a date or year as you will run into an error such as a month not being able to contain 35 days
+* It's generally an anti-pattern to do something like the following. If a file got deleted between the check and it being removed, it will error.
+
+```python
+# Anti-pattern
+if os.path.isfile(file_path):
+    os.remove(file_path)
+
+# Use instead
+try:
+    os.remove(file_path)
+except FileNotFoundError:
+    pass
+```
 
 ### Ruby
 
@@ -246,3 +265,6 @@ plutil local.myfile.plist
 * Site must pass a `speed test` check
 * Site must pass a `compatibility test` check
 * Site must have minified HTML, CSS, and JS where possible
+* Databases should be configured to have at least a single main read/write node and multiple read-only replicas. This helps with scaling and allows for failover when necessary. Applications should then only read from the replicas and write to the main node. Reporting and analytics can then be pulled from a dedicated replica so production data is not affected.
+* Services should be load balanced to at least 2 instances for each "container", providing high availability when one or more nodes fail
+* Services should have a healthcheck, be killed upon failure, and automatically restarted when those healthchecks fail for automated recovery
