@@ -4,7 +4,7 @@ A collection of style guides and best practices used for my projects and teams.
 
 [![Licence](https://img.shields.io/github/license/justintime50/styles)](LICENSE)
 
-This document is fluid and many changes will be coming over the next few months as I collect more information to include here. By the time I'm finished, I'd love the final product to look something like: https://codeguide.co/
+This document is fluid and many changes will be coming over the next few months as I collect more information to include here. By the time I'm finished, I'd love the final product to look something like: <https://codeguide.co/>
 
 ## General
 
@@ -129,12 +129,12 @@ This document is fluid and many changes will be coming over the next few months 
 
 ## Language Specific
 
-### C#
+### CSharp
 
 #### Tools
 
 - **Linter:** [Dotnet format](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-format)
-- **VCR:** [Scotch](https://github.com/mleech/scotch)
+- **VCR:** [EasyVCR](https://github.com/EasyPost/easyvcr-csharp)
 
 ### CSS
 
@@ -160,6 +160,8 @@ The following is a checklist of items that every website should have:
 
 - **Formatter:** [Gofmt](https://pkg.go.dev/cmd/gofmt)
 - **Linter:** [Golangci-lint](https://golangci-lint.run)
+- **Security:** [Gosec](https://github.com/securego/gosec)
+- **VCR:** [go-vcr](https://github.com/dnaeon/go-vcr)
 
 ### HTML
 
@@ -194,6 +196,8 @@ The following is a checklist of items that every website should have:
 #### Tools
 
 - **Linter:** [Checkstyle](https://github.com/checkstyle/checkstyle)
+- **Static Analysis:** [Error Prone](https://github.com/google/error-prone)
+- **VCR:** [EasyVCR](https://github.com/EasyPost/easyvcr-java)
 
 ### Javascript
 
@@ -223,6 +227,8 @@ The following is a checklist of items that every website should have:
 - **Import Sorter:** [iSort](https://github.com/PyCQA/isort)
 - **Linter:** [Flake8](https://github.com/PyCQA/flake8)
   - Config file found in this repo: `.flake8`
+- **Security:** [Bandit](https://github.com/PyCQA/bandit)
+- **Static Analysis:** [mypy](https://github.com/python/mypy)
 - **Tests:** [Pytest](https://github.com/pytest-dev/pytest)
 - **VCR:** [VCR.py](https://github.com/kevin1024/vcrpy)
 
@@ -250,6 +256,7 @@ except FileNotFoundError:
 #### Tools
 
 - **Linter:** [RuboCop](https://github.com/rubocop-hq/rubocop)
+- **Security:** [Brakeman](https://github.com/presidentbeef/brakeman)
 - **Tests:** [RSpec](https://github.com/rspec/rspec)
 
 ### Shell (Bash)
