@@ -86,6 +86,30 @@ This document is fluid and many changes will be coming over the next few months 
 - Avoid using class methods where possible and instead use instance or static methods.
 - Don’t use “selector arguments” or booleans for arguments to a function because this breaks the single responsibility principle. If your function does something different depending on a Boolean parameter, it really does two things and therefore the name will be misleading. Instead, you should break up the function into smaller functions, each doing one branch of the boolean flag
 
+#### Proper Function Structure
+
+Functions should follow the 1-2-3 principle:
+
+1. The first grouping of code (split by an empty newline) is usually boilerplate code or setup where we assign variables that we'll need later on
+2. The second grouping of code (split by an empty newline) is the logic where we actually do what the function is called
+3. The third grouping (split by an empty newline) should be the final return statement. Functions should also only return once at the end for easy maintenance and readability (TODO: provide research into this)
+
+There are obviously larger and smaller functions than this, but don't be afraid of newlines in functions. I've seen countless 30 line functions that had no line breaks which can be very hard on the eyes when scanning or reasoning about code. Breaking up related blocks of code makes maintaining and reading that code much easier.
+
+```python
+def is_number_large(my_number, threshold = 100):
+    """Returns true if a number is larger than a custom threshold."""
+    number_as_int = int(my_number)
+    threshold_as_int = int(threshold)
+
+    if number_as_int > threshold_as_int:
+        large_number = True
+    else:
+        large_number = False
+
+    return large_number
+```
+
 ### Meta
 
 - Put all instance variables at the top of your file, don’t mix them with public functions
@@ -104,6 +128,7 @@ This document is fluid and many changes will be coming over the next few months 
 - Think of “vertical separation”, variables and functions should be defined close to where they are used, not hundreds of lines apart
 - General purpose static functions should not be contained in a class since they typically aren’t actually coupled to the class
 - Shoot for brevity, be precise! Don’t use a float for currency (break it down into an integer for "cents"), don’t avoid adding lock/transaction management on concurrency, etc - “Don’t be lazy about the precision of your decision”
+- Avoid words like `filter` when naming thnigs because it can either mean `filter out` or `filter in`
 
 ### Naming
 
@@ -138,11 +163,11 @@ This document is fluid and many changes will be coming over the next few months 
 
 ### CSS
 
-#### Tools
+#### CSS Tools
 
 - **Linter:** [stylelint](https://github.com/stylelint/stylelint)
 
-#### Styles
+#### CSS Styles
 
 The following is a checklist of items that every website should have:
 
@@ -150,13 +175,13 @@ The following is a checklist of items that every website should have:
 
 ### Docker
 
-#### Tools
+#### Docker Tools
 
 - **Linter:** [Hadolint](https://github.com/hadolint/hadolint)
 
 ### Golang
 
-#### Tools
+#### Golang Tools
 
 - **Formatter:** [Gofmt](https://pkg.go.dev/cmd/gofmt)
 - **Linter:** [Golangci-lint](https://golangci-lint.run)
@@ -165,15 +190,17 @@ The following is a checklist of items that every website should have:
 
 ### HTML
 
-#### Tools
+#### HTML Tools
 
 - **Linter:** [HTMLHint](https://github.com/htmlhint/HTMLHint)
 
-#### Styles
+#### HTML Styles
 
 - Don't repeat `&nbsp;` over and over when you want to space something, use a CSS class in a `<span>` to do this instead
 - Avoid using inline CSS styles (use CSS classes and external stylesheets)
 - `<br />` tags should only be contained inside a set of `<p>` tags. CSS classes should lbe used otherwise to provide vertical spacing
+- Always list the `href/src` first for stylesheets and scripts for easy readability and visual scanning (eg: `<a href="https://example.com" target="_blank">example</a>`)
+- `rel` is required for stylesheets
 
 The following is a checklist of items that every website should have:
 
@@ -193,7 +220,7 @@ The following is a checklist of items that every website should have:
 
 ### Java
 
-#### Tools
+#### Java Tools
 
 - **Linter:** [Checkstyle](https://github.com/checkstyle/checkstyle)
 - **Static Analysis:** [Error Prone](https://github.com/google/error-prone)
@@ -201,7 +228,7 @@ The following is a checklist of items that every website should have:
 
 ### Javascript
 
-#### Tools
+#### Javascript Tools
 
 - **Formatter:** [Prettier](https://prettier.io)
   - Config file found in this repo: `.prettierrc.yml`
@@ -212,7 +239,7 @@ The following is a checklist of items that every website should have:
 
 ### PHP
 
-#### Tools
+#### PHP Tools
 
 - **Linter:** [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
 - **Tests:** [PHPUnit](https://github.com/sebastianbergmann/phpunit)
@@ -220,7 +247,7 @@ The following is a checklist of items that every website should have:
 
 ### Python
 
-#### Tools
+#### Python Tools
 
 - **Formatter:** [Black](https://github.com/psf/black)
   - Config file found in this repo: `pyproject.toml`
@@ -232,7 +259,7 @@ The following is a checklist of items that every website should have:
 - **Tests:** [Pytest](https://github.com/pytest-dev/pytest)
 - **VCR:** [VCR.py](https://github.com/kevin1024/vcrpy)
 
-#### Styles
+#### Python Styles
 
 - You can’t kill threads easily in Python, keep this in mind when playing with concurrency
 - Do not define raw paths, you must use the `os.path.join()` function as this will automatically build the paths for you depending on what OS you're on (eg: slashes on Windows)
@@ -251,9 +278,25 @@ except FileNotFoundError:
     pass
 ```
 
+- Ensure that error assertions are unindented from a pytest context helper (bites me all the time):
+
+```python
+# This will fail
+with pytest.raises(Error) as error:
+    my_function('BAD_INPUT')
+
+    assert str(error.value) == 'You sent bad input'
+
+# This will succeed
+with pytest.raises(Error) as error:
+    my_function('BAD_INPUT')
+
+assert str(error.value) == 'You sent bad input'
+```
+
 ### Ruby
 
-#### Tools
+#### Ruby Tools
 
 - **Linter:** [RuboCop](https://github.com/rubocop-hq/rubocop)
 - **Security:** [Brakeman](https://github.com/presidentbeef/brakeman)
@@ -261,17 +304,17 @@ except FileNotFoundError:
 
 ### Shell (Bash)
 
-#### Tools
+#### Shell Tools
 
 - **Linter:** [ShellCheck](https://github.com/koalaman/shellcheck)
 
-#### Styles
+#### Shell Styles
 
 - Build shell scripts and tools for the largest compatible surface area possible, ensure they are POSIX compliant and able to not only run on the latest versions of Bash but also the oldest versions of `sh`, `dash`, or `ksh`
 
 ### Websites & Infrastructure
 
-#### Styles
+#### Websites & Infrastructure Styles
 
 - Site must have a `www.` alias configured
 - Site must have `SSL` configured (eg: LetsEncrypt)
