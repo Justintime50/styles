@@ -312,6 +312,12 @@ assert str(error.value) == 'You sent bad input'
 
 - Build shell scripts and tools for the largest compatible surface area possible, ensure they are POSIX compliant and able to not only run on the latest versions of Bash but also the oldest versions of `sh`, `dash`, or `ksh`
 
+### Swift
+
+#### Swift Tools
+
+- **Linter:** [Swiftlint](https://github.com/realm/SwiftLint)
+
 ### Websites & Infrastructure
 
 #### Websites & Infrastructure Styles
