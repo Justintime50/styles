@@ -141,7 +141,7 @@ def is_number_large(my_number, threshold = 100):
 - Projects should be placed in a top-level `src` folder so that project config and documents can live outside the project folder
 - Target versions of a language back to the the oldest maintained version up through the newest version where possible. Drop support for versions of a language that no longer receive maintenance (security updates, etc) and adopt new versions as early as is feasible
 
-### Tests
+### Testing
 
 - Clean tests follow five rules:
   - Fast: tests must be fast, otherwise you will stop running them and code will rot
@@ -151,6 +151,7 @@ def is_number_large(my_number, threshold = 100):
   - Timely: tests should be written shortly before the production code they’ll be testing
 - Unit tests should follow the Build-Operate-Check model where test data is built, then the function is operated, and finally the result is asserted against an expectation. Don’t add extra noise to tests
 - Test only a single concept per unit test
+- Don’t mock to make yourself feel better; mock because you have to
 
 ## Language Specific
 
