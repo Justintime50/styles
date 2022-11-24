@@ -18,6 +18,9 @@
     <!-- Only lint PHP files -->
     <arg name="extensions" value="php" />
 
+    <!-- Ignore warnings and display errors only -->
+    <arg value="np" />
+
     <!-- Use the PSR12 ruleset -->
     <rule ref="PSR12" />
 

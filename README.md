@@ -10,6 +10,10 @@ This document is fluid and many changes will be coming over the next few months 
 
 You can find various configuration files for styling/formatting tools across various langauges found in the `styles` directory.
 
+### PHP Config
+
+Add `"justintime50/styles": "dev-main"` to your dev requirements in `composer.json` and reference the `justintime50/styles/styles/phpcs.xml` file.
+
 ## General
 
 ### Architecture
