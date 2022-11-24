@@ -11,13 +11,13 @@ This document is fluid and many changes will be coming over the next few months 
 
 You can find various configuration files for styling/formatting tools across various langauges found in the `styles` directory.
 
-### Composer Install
-
-Add `"justintime50/styles": "^0.1.0"` to your dev requirements in `composer.json`.
-
 ### NPM Install
 
-Add `"justintime50/styles": "^0.1.0"` to your `devDependencies` in `package.json`.
+Add `"justintime50-styles": "^0.1.0"` to `devDependencies` in `package.json`.
+
+### Composer Install
+
+Add `"justintime50/styles": "^0.1.0"` to `require-dev` in `composer.json`.
 
 ## General
 
