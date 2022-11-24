@@ -2,6 +2,7 @@
 
 A collection of style guides and best practices used for my projects and teams.
 
+[![Build](https://github.com/Justintime50/styles/workflows/build/badge.svg)](https://github.com/Justintime50/styles/actions)
 [![Licence](https://img.shields.io/github/license/justintime50/styles)](LICENSE)
 
 This document is fluid and many changes will be coming over the next few months as I collect more information to include here. By the time I'm finished, I'd love the final product to look something like: <https://codeguide.co/>
@@ -10,9 +11,13 @@ This document is fluid and many changes will be coming over the next few months 
 
 You can find various configuration files for styling/formatting tools across various langauges found in the `styles` directory.
 
-### PHP Config
+### Composer Install
 
-Add `"justintime50/styles": "dev-main"` to your dev requirements in `composer.json` and reference the `justintime50/styles/styles/phpcs.xml` file.
+Add `"justintime50/styles": "^0.1.0"` to your dev requirements in `composer.json`.
+
+### NPM Install
+
+Add `"justintime50/styles": "^0.1.0"` to your `devDependencies` in `package.json`.
 
 ## General
 

@@ -1,9 +1,19 @@
 {
+  "name": "styles",
+  "description": "A collection of style guides and best practices used for my projects and teams.",
+  "version": "0.1.0",
+  "author": "Justintime50",
+  "license": "MIT",
+  "homepage": "https://github.com/justintime50/styles",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justintime50/styles.git"
+  },
   "devDependencies": {
-    "prettier": "^2.5.1"
+    "prettier": "^2.8.0"
   },
   "scripts": {
-    "format": "prettier --write .",
-    "format-check": "prettier --check ."
+    "format": "prettier --config src/javascript/.prettierrc.yaml --write .",
+    "format-check": "prettier --config src/javascript/.prettierrc.yaml --check ."
   }
 }
