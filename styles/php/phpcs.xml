@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<ruleset name="PHP_CodeSniffer">
+    <description>PHP CodeSniffer Ruleset by Justintime50</description>
+
+    <!-- Where to lint -->
+    <file>src</file>
+
+    <!-- What to exclude -->
+    <exclude-pattern>*/bin/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*.blade.php</exclude-pattern>
+    <exclude-pattern>*/bootstrap/*</exclude-pattern>
+    <exclude-pattern>*/migrations/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/storage/*</exclude-pattern>
+
+    <!-- Only lint PHP files -->
+    <arg name="extensions" value="php" />
+
+    <!-- Use the PSR12 ruleset -->
+    <rule ref="PSR12" />
+
+    <!-- Enforce custom rules -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+    <rule ref="Squiz.NamingConventions.ValidVariableName.NotCamelCaps" />
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
+    <rule ref="vendor/squizlabs/php_codesniffer/src/Standards/PEAR/Sniffs/Commenting/InlineCommentSniff.php" />
+</ruleset>

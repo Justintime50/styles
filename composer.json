@@ -1,0 +1,15 @@
+{
+  "name": "justintime50/styles",
+  "description": "A collection of style guides and best practices used for my projects and teams.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "library",
+  "homepage": "https://github.com/Justintime50/styles",
+  "authors": [
+    {
+      "name": "Justintime50",
+      "email": "39606064+Justintime50@users.noreply.github.com"
+    }
+  ],
+  "require": {}
+}

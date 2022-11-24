@@ -6,6 +6,10 @@ A collection of style guides and best practices used for my projects and teams.
 
 This document is fluid and many changes will be coming over the next few months as I collect more information to include here. By the time I'm finished, I'd love the final product to look something like: <https://codeguide.co/>
 
+## Tooling Configuration
+
+You can find various configuration files for styling/formatting tools across various langauges found in the `styles` directory.
+
 ## General
 
 ### Architecture
