@@ -13,11 +13,15 @@ You can find various configuration files for styling/formatting tools across var
 
 ### NPM Install
 
-Add `"justintime50-styles": "^0.1.0"` to `devDependencies` in `package.json`.
+```bash
+npm install --save-dev justintime50-styles
+```
 
 ### Composer Install
 
-Add `"justintime50/styles": "^0.1.0"` to `require-dev` in `composer.json`.
+```bash
+composer require --dev justintime50/styles
+```
 
 ## General
 
