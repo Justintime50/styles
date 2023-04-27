@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.4.0 (2023-04-27)
+
+- Enforces string convention for `import-notation` in `Stylelint`
+
 ## v0.3.0 (2023-04-05)
 
 - Enforces a line-length of 120 characters for PHP projects
