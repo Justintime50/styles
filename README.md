@@ -282,8 +282,9 @@ The following is a checklist of items that every website should have:
 - You can’t kill threads easily in Python, keep this in mind when playing with concurrency
 - Do not define raw paths, you must use the `os.path.join()` function as this will automatically build the paths for you depending on what OS you're on (eg: slashes on Windows)
 - Use `datetime.timedelta` to offset a date which will automatically roll over months and years as needed. Do not add `+6` to a date or year as you will run into an error such as a month not being able to contain 35 days
-- It's generally an anti-pattern to do something like the following. If a file got deleted between the check and it being removed, it will error.
 - "Mock an item where it is used, not where it came from."
+
+It's generally an anti-pattern to do something like the following. If a file got deleted between the check and it being removed, it will error:
 
 ```python
 # Anti-pattern
@@ -297,7 +298,7 @@ except FileNotFoundError:
     pass
 ```
 
-- Ensure that error assertions are unindented from a pytest context helper (bites me all the time):
+Ensure that error assertions are unindented from a pytest context helper (bites me all the time):
 
 ```python
 # This will fail
