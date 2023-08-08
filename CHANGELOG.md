@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.5.0 (2023-08-07)
+
+Disables the `no-descending-specificity` rule of stylelint as I'm almost always using nested SASS which doesn't play nicely with this rule
+
 ## v0.4.0 (2023-04-27)
 
 - Enforces string convention for `import-notation` in `Stylelint`
