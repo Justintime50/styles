@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.6.0 (2024-05-31)
+
+Ignores `at-rule-no-unknown` in CSS linting.
+
 ## v0.5.0 (2023-08-07)
 
 Disables the `no-descending-specificity` rule of stylelint as I'm almost always using nested SASS which doesn't play nicely with this rule
