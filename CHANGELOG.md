@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v0.7.0 (2025-01-07)
+
+- Migrates ESLint config from v8 to v9 syntax
+- Adds Node and PHP minimum version constraints
+
 ## v0.6.0 (2024-05-31)
 
 - Ignores `at-rule-no-unknown` in CSS linting.

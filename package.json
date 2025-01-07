@@ -1,7 +1,7 @@
 {
   "name": "justintime50-styles",
   "description": "A collection of style guides and best practices used for my projects and teams.",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "author": "Justintime50",
   "license": "MIT",
   "homepage": "https://github.com/justintime50/styles",
@@ -9,11 +9,17 @@
     "type": "git",
     "url": "git+https://github.com/justintime50/styles.git"
   },
+  "engines": {
+    "node": ">=16.0"
+  },
   "devDependencies": {
-    "prettier": "^2.8.0"
+    "eslint": "^9.0",
+    "prettier": "^3.4"
   },
   "scripts": {
     "format": "prettier --config src/javascript/.prettierrc.yaml --write .",
-    "format-check": "prettier --config src/javascript/.prettierrc.yaml --check ."
+    "format-check": "prettier --config src/javascript/.prettierrc.yaml --check .",
+    "lint": "eslint --config src/javascript/eslint.config.js .",
+    "lint-fix": "eslint --config src/javascript/eslint.config.js --fix ."
   }
 }
