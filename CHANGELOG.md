@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.8.1 (2025-05-12)
+
+- Include `searchAnnotations` for `UnusedUses`
+
 ## v0.8.0 (2025-05-12)
 
 - Warn on unused uses for PHP
