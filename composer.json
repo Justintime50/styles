@@ -1,7 +1,7 @@
 {
   "name": "justintime50/styles",
   "description": "A collection of style guides and best practices used for my projects and teams.",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "license": "MIT",
   "type": "library",
   "homepage": "https://github.com/Justintime50/styles",
@@ -13,5 +13,13 @@
   ],
   "require": {
     "php": "^8.0"
+  },
+  "require-dev": {
+    "slevomat/coding-standard": "^8.18"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }

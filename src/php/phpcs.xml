@@ -35,4 +35,5 @@
     <rule ref="Squiz.NamingConventions.ValidVariableName.NotCamelCaps" />
     <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
     <rule ref="vendor/squizlabs/php_codesniffer/src/Standards/PEAR/Sniffs/Commenting/InlineCommentSniff.php" />
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses"/>
 </ruleset>

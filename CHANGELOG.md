@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.8.0 (2025-05-12)
+
+- Warn on unused uses for PHP
+
 ## v0.7.0 (2025-01-07)
 
 - Migrates ESLint config from v8 to v9 syntax
