@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.9.1 (2025-05-14)
+
+- Corrects style dependency for PHP
+
 ## v0.9.0 (2025-05-14)
 
 - Warn on unused variables for PHP
