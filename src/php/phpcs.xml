@@ -40,4 +40,5 @@
             <property name="searchAnnotations" type="boolean" value="true"/>
         </properties>
     </rule>
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
 </ruleset>
