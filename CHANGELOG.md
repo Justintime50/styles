@@ -2,7 +2,7 @@
 
 ## v0.10.0 (2025-07-01)
 
-Defines packages as `module` type in JS
+- Defines packages as `module` type in JS
 
 ## v0.9.1 (2025-05-14)
 
