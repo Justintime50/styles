@@ -1,8 +1,8 @@
 # CHANGELOG
 
-## v0.11.2, v0.11.3 (2026-01-03)
+## v0.11.2, v0.11.3, v0.11.4 (2026-01-03)
 
-- Bumps `phpcs-short-scalar-types` so it can now be auto-installed with `PHPCSStandards/composer-installer`
+- Bumps `phpcs-short-scalar-types` so it can now be auto-installed with `PHPCSStandards/composer-installer`, various updates to `phpcs-short-scalar-types`
 
 ## v0.11.1 (2026-01-03)
 
