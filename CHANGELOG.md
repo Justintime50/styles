@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## V0.11.0 (2026-01-03)
+
+- Adds `ShortTypes.Commenting.ShortScalarTypes` PHPCS Sniff
+
 ## v0.10.0 (2025-07-01)
 
 - Defines packages as `module` type in JS

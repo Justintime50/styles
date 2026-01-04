@@ -27,8 +27,8 @@
     <!-- Enforce custom rules -->
     <rule ref= "Generic.Files.LineLength">
         <properties>
-            <property name="lineLimit" value="120"/>
-            <property name="absoluteLineLimit" value="120"/>
+            <property name="lineLimit" value="120" />
+            <property name="absoluteLineLimit" value="120" />
         </properties>
     </rule>
     <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
@@ -37,8 +37,9 @@
     <rule ref="vendor/squizlabs/php_codesniffer/src/Standards/PEAR/Sniffs/Commenting/InlineCommentSniff.php" />
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
         <properties>
-            <property name="searchAnnotations" type="boolean" value="true"/>
+            <property name="searchAnnotations" type="boolean" value="true" />
         </properties>
     </rule>
-    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable"/>
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable" />
+    <rule ref="ShortTypes.Commenting.ShortScalarTypes" />
 </ruleset>
