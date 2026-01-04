@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.11.1 (2026-01-03)
+
+- Moves `ShortTypes.Commenting.ShortScalarTypes` from dev to prod dependency
+
 ## V0.11.0 (2026-01-03)
 
 - Adds `ShortTypes.Commenting.ShortScalarTypes` PHPCS Sniff
