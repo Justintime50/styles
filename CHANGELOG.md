@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## V0.11.2 (2026-01-03)
+
+- Bumps `phpcs-short-scalar-types` so it can now be auto-installed with `PHPCSStandards/composer-installer`
+
 ## v0.11.1 (2026-01-03)
 
 - Moves `ShortTypes.Commenting.ShortScalarTypes` from dev to prod dependency
