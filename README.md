@@ -216,7 +216,7 @@ The following is a checklist of items that every website should have:
 
 - Don't repeat `&nbsp;` over and over when you want to space something, use a CSS class in a `<span>` to do this instead
 - Avoid using inline CSS styles (use CSS classes and external stylesheets)
-- `<br />` tags should only be contained inside a set of `<p>` tags. CSS classes should lbe used otherwise to provide vertical spacing
+- `<br />` tags should only be contained inside a set of `<p>` tags. CSS classes should be used otherwise to provide vertical spacing
 - Always list the `href/src` first for stylesheets and scripts for easy readability and visual scanning (eg: `<a href="https://example.com" target="_blank">example</a>`)
 - `rel` is required for stylesheets
 
