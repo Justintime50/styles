@@ -5,11 +5,9 @@ A collection of style guides and best practices used for my projects and teams.
 [![Build](https://github.com/Justintime50/styles/workflows/build/badge.svg)](https://github.com/Justintime50/styles/actions)
 [![Licence](https://img.shields.io/github/license/justintime50/styles)](LICENSE)
 
-This document is fluid and many changes will be coming over the next few months as I collect more information to include here. By the time I'm finished, I'd love the final product to look something like: <https://codeguide.co/>
-
 ## Tooling Configuration
 
-You can find various configuration files for styling/formatting tools across various langauges found in the `styles` directory.
+You can find various configuration files for styling/formatting tools across various langauges found in the `src` directory.
 
 ### NPM Install
 
@@ -27,11 +25,6 @@ composer require --dev justintime50/styles
 
 ### Architecture
 
-- Simple Design:
-  - Runs all the tests
-  - Contains no duplication
-  - Expresses the intent of the programmer
-  - Minimizes the number of classes and methods
 - Build out clean interfaces over ad-hoc scripts or SQL queries. This will ensure consistency, safety, and it can be code reviewed
 - Separate constructing a system from using it, meaning that the “setup” code should be separate from the main business logic
 - Abstract your data structures. Abstract interfaces allow its users to manipulate the essence of the data without having to know how it’s implemented
@@ -47,31 +40,32 @@ composer require --dev justintime50/styles
 ### Checklist
 
 - Ensure the code you are writing is `NULL` safe
-- Ensure the code you are writing either has a unit test (especially when you need to guard against a regression) or that you have end-to-end tested it. Preferably, you would accomplish both
+- Ensure the code you are writing either has a unit test (especially when you need to guard against a regression) or that you have end-to-end tested it. Preferably, you would do both
 - Ensure the code is readable, remember, you will have other contributors looking at this in the future, maybe even years later
   - Will it make sense then as it does now?
-- Ensure your code is easily to maintain. Can things be added to this easily, can we tweak the configuration if requirements change in the future, does it make sense enough that someone with no context could jump in down the road and work on this?
+- Ensure your code is easy to maintain. Can things be added to this easily, can we tweak the configuration if requirements change in the future, does it make sense enough that someone with no context could jump in later on and work on this?
 - Ensure your code preserves git blame (eg: Trailing commas, breaking up lists to different lines)
 - Ensure your code is self documenting (eg: function and variable names give a clear indicator to the reader of what is happening and what it is doing)
 - Ensure your code does not introduce side effects. Functions and classes should do one thing without bleeding into other areas
 
 ### Classes
 
-- Class variables should be listed public static constants first, then private static variables, followed by private instance variables. There is seldom reason to have a public variable
+- Class variables should be listed public static constants first, then private static variables, followed by private instance variables. There is seldom reason to have a public (global) variable
 - The name of a class should describe what responsibilities it fulfills
 - You should be able to define a class in 25 words or less without using the words “if”, “and”, “or”, or “but”, otherwise it probably has too many responsibilities
-- SPR: Single Responsibility Principle, classes should only ever do one thing. A “dashboard” class shouldn’t grab the version number and show stats for your app
+- SPR: **Single Responsibility Principle**, classes should only ever do one thing. A “dashboard” class shouldn’t grab the version number and show stats for your app
   - Break out the version data into a separate class
 - Programs should be made up of many small classes
-- OCP: Open-Closed Principle, classes are open to extension but closed to modification
-- DIP: Dependency Inversion Principle, classes should depend on abstractions, not concrete details
-- Using instance variables is a powerful way to cut down on passing large amounts of parameters around your app when everything is stored within the `self` namespace, it can be easily referenced from any instance method and seemingly numberless variables can be associated with `self` (eg: Python)
+- OCP: **Open-Closed Principle**, classes are open to extension but closed to modification
+- DIP: **Dependency Inversion Principle**, classes should depend on abstractions, not concrete details
+- Using instance variables is a powerful way to cut down on passing large amounts of parameters around your app when everything is stored within the `self` namespace, it can be easily referenced from any instance method and seemingly numberless variables can be associated with `self`
 
 ### Comments
 
 - Comments should be used when we fail to express properly our intentions in code
-- Comments should explain why we did what we did
+- Comments should explain **why** we did what we did, the code should be self-documenting enough to define the **what**. If we need to define what code does with a comment, the code should probably be refactored
 - Comments can live for years, make sure they’ll age well hundreds of commits later
+- Comments should not be used needlessly and instead should seldomly be used
 
 ### Concurrency
 
@@ -87,18 +81,17 @@ composer require --dev justintime50/styles
 
 ### Databases
 
-- All inserts/updates must be run inside a transaction. Validate your change before committing it.
+- All manual inserts/updates must be run inside a transaction (eg: `BEGIN`, `COMMIT`, `ROLLBACK`). Validate your change before committing it.
+- Many inserts/updates/deletes should not be done sequentially for performance. Batch them in groups of ~1000 records.
 
 ### Error Handling
 
-- Extract try/catch block bodies into their own functions so that error processing can be separated from normal logic
-- Error handling should be in its own function if we are following the “functions do one thing” rule
+- Errors should bubble up from functions, allowing the calling code to determine what to do with it
 - If error handling obscures logic, it’s wrong
 
 ### Functions
 
-- Have a single return statement (don’t return early)
-- Return statements should have a line break betwen them and the content above to clearly define the function is now complete and to separate focuses
+- Have a single return statement (avoid returning early)
 - Avoid returning null, avoid passing null as a parameter
 - Avoid using class methods where possible and instead use instance or static methods.
 - Don’t use “selector arguments” or booleans for arguments to a function because this breaks the single responsibility principle. If your function does something different depending on a Boolean parameter, it really does two things and therefore the name will be misleading. Instead, you should break up the function into smaller functions, each doing one branch of the boolean flag
@@ -131,10 +124,9 @@ def is_number_large(my_number, threshold = 100):
 
 - Put all instance variables at the top of your file, don’t mix them with public functions
 - “Main” functions should be declared first in a file so that you can then keep reading from top to bottom as you drill down
-- Files shouldn’t exceed 200 lines of code
-- Line lengths should not exceed 120 chars
+- Line lengths should not exceed 120 characters for readability
 - Use trailing commas where possible so that the list can easily grow in the future while keeping the next diff small
-- Create a consistent lexicon and share it across the company for things like names (eg: fetch, get, retrieve all ultimately mean the same thing, which will you use across your code base?). If you do something someway, do it that way everywhere. This leans back to the principle of least surprise
+- Create a consistent lexicon and share it across the company for things like names (eg: "fetch", "get", "retrieve" all ultimately mean the same thing, which will you use across your code base?). If you do something someway, do it that way everywhere. This leans back to the principle of least surprise
 - Don’t pack lists or block pack them, always unpack lists so that each item is on its own line. It’s easier to read vertically than it is horizontally
 - Use object literals over complex if/else or switch/case statements
 - Use implicit true statements when possible (eg: `if im_awesome is True:` — vs — `if im_awesome:`)
@@ -142,21 +134,19 @@ def is_number_large(my_number, threshold = 100):
 - Always sort your lists unless there is an explicit reason not to. This ensures that diffs stay small and sorted lists are much easier to maintain and find info in
 - Positives are easier to understand than negatives, in the case of if/else statements, have the “if” section be the positive logic
 - Don’t include dead code. This could be code in an if/else block that will never be reached or code in a try/except block that can never throw
+- Don't include commented out code. It's never run, it bloates the software, and if it existed before and we are commenting out "for now", it still exists in git history. It should be removed
 - Think of “vertical separation”, variables and functions should be defined close to where they are used, not hundreds of lines apart
 - General purpose static functions should not be contained in a class since they typically aren’t actually coupled to the class
 - Shoot for brevity, be precise! Don’t use a float for currency (break it down into an integer for "cents"), don’t avoid adding lock/transaction management on concurrency, etc - “Don’t be lazy about the precision of your decision”
-- Avoid words like `filter` when naming thnigs because it can either mean `filter out` or `filter in`
+- Avoid words like `filter` when naming things because it can either mean `filter out` or `filter in`
+- Projects should be placed in a top-level `src` folder so that project config and documents can live outside the project folder
+- Target versions of a language back to the the oldest maintained version up through the newest version where possible. Drop support for versions of a language that no longer receive maintenance (security updates, etc) and adopt new versions as early as is feasible
 
 ### Naming
 
 - Don’t try to be smart, spell things out (eg: variable and function names)
   - Abbreviating or coming up with clever names only leads to more taxing code scanning by the next engineer
 - Use constants or variables to define integers and other strings that aren’t easily identifiable (vs just passing them inline as parameters without declaring what they are). A great example of a snippet of code where this could be useful is instead of directly returning the following, you could assign it a descriptive variable and return that clean variable instead: `{k: cls._objects_to_ids(v) for k, v in six.iteritems(params)}`. This also goes for having multiple and/or statements, assign them to a variable to help describe intent
-
-### Open Source
-
-- Projects should be placed in a top-level `src` folder so that project config and documents can live outside the project folder
-- Target versions of a language back to the the oldest maintained version up through the newest version where possible. Drop support for versions of a language that no longer receive maintenance (security updates, etc) and adopt new versions as early as is feasible
 
 ### Testing
 
@@ -168,7 +158,7 @@ def is_number_large(my_number, threshold = 100):
   - Timely: tests should be written shortly before the production code they’ll be testing
 - Unit tests should follow the Build-Operate-Check model where test data is built, then the function is operated, and finally the result is asserted against an expectation. Don’t add extra noise to tests
 - Test only a single concept per unit test
-- Don’t mock to make yourself feel better; mock because you have to
+- Don’t mock to make yourself feel better; mock because you have to. Mocks don't run real production code, they make believe and call it a test
 
 ## Language Specific
 
@@ -240,6 +230,7 @@ The following is a checklist of items that every website should have:
 
 #### Java Tools
 
+- **Dependency Management:** [maven](https://github.com/apache/maven)
 - **Linter:** [Checkstyle](https://github.com/checkstyle/checkstyle)
 - **Static Analysis:** [Error Prone](https://github.com/google/error-prone)
 - **VCR:** [EasyVCR](https://github.com/EasyPost/easyvcr-java)
@@ -248,6 +239,7 @@ The following is a checklist of items that every website should have:
 
 #### Javascript Tools
 
+- **Dependency Management:** [npm](https://github.com/npm/cli)
 - **Formatter:** [Prettier](https://prettier.io)
   - Config file found in this repo: `.prettierrc.yml`
 - **Linter:** [ESLint](https://github.com/eslint/eslint)
@@ -259,6 +251,7 @@ The following is a checklist of items that every website should have:
 
 #### PHP Tools
 
+- **Dependency Management:** [composer](https://github.com/composer/composer)
 - **Linter:** [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
 - **Tests:** [PHPUnit](https://github.com/sebastianbergmann/phpunit)
 - **VCR:** [PHP VCR](https://github.com/php-vcr/php-vcr)
@@ -267,11 +260,9 @@ The following is a checklist of items that every website should have:
 
 #### Python Tools
 
-- **Formatter:** [Black](https://github.com/psf/black)
+- **Dependency Management:** [uv](https://github.com/astral-sh/uv)
+- **Linter/Formatter:** [Ruff](https://github.com/astral-sh/ruff)
   - Config file found in this repo: `pyproject.toml`
-- **Import Sorter:** [iSort](https://github.com/PyCQA/isort)
-- **Linter:** [Flake8](https://github.com/PyCQA/flake8)
-  - Config file found in this repo: `.flake8`
 - **Security:** [Bandit](https://github.com/PyCQA/bandit)
 - **Static Analysis:** [mypy](https://github.com/python/mypy)
 - **Tests:** [Pytest](https://github.com/pytest-dev/pytest)
@@ -318,6 +309,7 @@ assert str(error.value) == 'You sent bad input'
 
 #### Ruby Tools
 
+- **Dependency Management:** [rubygems](https://github.com/ruby/rubygems)
 - **Linter:** [RuboCop](https://github.com/rubocop-hq/rubocop)
 - **Security:** [Brakeman](https://github.com/presidentbeef/brakeman)
 - **Tests:** [RSpec](https://github.com/rspec/rspec)
