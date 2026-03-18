@@ -1,7 +1,7 @@
 {
   "name": "justintime50/styles",
   "description": "A collection of style guides and best practices used for my projects and teams.",
-  "version": "0.11.4",
+  "version": "0.12.0",
   "license": "MIT",
   "type": "library",
   "homepage": "https://github.com/Justintime50/styles",
@@ -13,8 +13,8 @@
   ],
   "require": {
     "php": "^8.0",
-    "justintime50/phpcs-short-scalar-types": "^0.3.0",
-    "slevomat/coding-standard": "^8.18"
+    "justintime50/phpcs-short-scalar-types": "^1.0.0",
+    "slevomat/coding-standard": "^8.28"
   },
   "config": {
     "allow-plugins": {

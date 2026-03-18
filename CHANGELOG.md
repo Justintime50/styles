@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.12.0 (2026-03-18)
+
+- Bumps `justintime50/phpcs-short-scalar-types`
+- Removes `TargetRubyVersion` in rubocop.yaml
+- Bumps deps
+
 ## v0.11.2, v0.11.3, v0.11.4 (2026-01-03)
 
 - Bumps `phpcs-short-scalar-types` so it can now be auto-installed with `PHPCSStandards/composer-installer`, various updates to `phpcs-short-scalar-types`
