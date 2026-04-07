@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.13.0 (2026-04-07)
+
+- ESLint v10 support
+
 ## v0.12.0 (2026-03-18)
 
 - Bumps `justintime50/phpcs-short-scalar-types`

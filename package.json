@@ -14,8 +14,10 @@
     "node": ">=16.0"
   },
   "devDependencies": {
-    "eslint": "^9.0",
-    "prettier": "^3.4"
+    "@eslint/js": "^10.0",
+    "eslint": "^10.0",
+    "globals": "^17.4",
+    "prettier": "^3.8"
   },
   "scripts": {
     "format": "prettier --config src/javascript/.prettierrc.yaml --write src",
