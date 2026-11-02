@@ -36,6 +36,7 @@ composer require --dev justintime50/styles
 - Use the Singleton design pattern when possible
 - Routes -> Views/Actions -> Service -> Repo -> DB
 - Use frontend and backend validation, this is important because when you have both, we can skip sending an API call for instance when we know there is bad data. We will then only send the payload across once the data is valid. Backend validation is important as the source of truth and because things like developer tools in a browser can defeat frontend validations
+- Destructive commands (eg: cleanup or delete tools) should do a dry run by default and require an explicit `-f/--force` flag before deleting anything
 
 ### Checklist
 
@@ -47,6 +48,9 @@ composer require --dev justintime50/styles
 - Ensure your code preserves git blame (eg: Trailing commas, breaking up lists to different lines)
 - Ensure your code is self documenting (eg: function and variable names give a clear indicator to the reader of what is happening and what it is doing)
 - Ensure your code does not introduce side effects. Functions and classes should do one thing without bleeding into other areas
+- Ensure your change is as small and simple as it can be. Keep the diff focused: don't reformat unrelated code, don't add speculative hardening, and split unrelated changes into their own commits
+- Ensure the change doesn't pile on guardrails for fringe cases. A simple, optimized solution is easier to maintain than one that tries to defend against every edge case
+- Ensure workarounds used only to verify something locally (eg: skipping a step so a check passes) are never committed
 
 ### Classes
 
@@ -84,6 +88,13 @@ composer require --dev justintime50/styles
 - All manual inserts/updates must be run inside a transaction (eg: `BEGIN`, `COMMIT`, `ROLLBACK`). Validate your change before committing it.
 - Many inserts/updates/deletes should not be done sequentially for performance. Batch them in groups of ~1000 records.
 
+### Documentation
+
+- Avoid "you" and "we" in documentation where possible. Prefer the imperative, then a named actor (eg: "users")
+- Don't enforce hard sentence-length limits; write as clearly as the content needs
+- Anchor links are not a contract. They are generated from headings and can change whenever a heading changes
+- Don't list versions that will drift in docs (eg: the Node version a project currently uses in a README). Decision records and comments explaining why a specific version is used can keep their version details
+
 ### Error Handling
 
 - Errors should bubble up from functions, allowing the calling code to determine what to do with it
@@ -120,6 +131,12 @@ def is_number_large(my_number, threshold = 100):
     return large_number
 ```
 
+### Git
+
+- Use underscores in branch names, never slashes (eg: `add_new_feature`, not `feature/add-new-feature`). Some tooling breaks on `/` in branch names
+- Prefer SSH remotes for GitHub (eg: `git@github.com:user/repo.git`)
+- Never modify someone's global git config from a script or tool. Use per-command `git -c key=value` flags or environment variables instead
+
 ### Meta
 
 - Put all instance variables at the top of your file, don’t mix them with public functions
@@ -141,12 +158,19 @@ def is_number_large(my_number, threshold = 100):
 - Avoid words like `filter` when naming things because it can either mean `filter out` or `filter in`
 - Projects should be placed in a top-level `src` folder so that project config and documents can live outside the project folder
 - Target versions of a language back to the the oldest maintained version up through the newest version where possible. Drop support for versions of a language that no longer receive maintenance (security updates, etc) and adopt new versions as early as is feasible
+- Don't rename existing `make` or `just` targets, even for consistency across repos, since developers and automation rely on them. What a target does under the hood can change
+- Only the `install` target should print runtime info (eg: the Node version in use). Other targets such as `lint`, `test`, and `build` should stay quiet about it
 
 ### Naming
 
 - Don’t try to be smart, spell things out (eg: variable and function names)
   - Abbreviating or coming up with clever names only leads to more taxing code scanning by the next engineer
 - Use constants or variables to define integers and other strings that aren’t easily identifiable (vs just passing them inline as parameters without declaring what they are). A great example of a snippet of code where this could be useful is instead of directly returning the following, you could assign it a descriptive variable and return that clean variable instead: `{k: cls._objects_to_ids(v) for k, v in six.iteritems(params)}`. This also goes for having multiple and/or statements, assign them to a variable to help describe intent
+
+### Reviews
+
+- Focus code reviews on breaking changes and undesired behavior the author may not have realized, not nitpicks. The goal is to ship working software
+- Avoid adding complexity to a change just to satisfy a nitpick
 
 ### Testing
 
@@ -159,6 +183,14 @@ def is_number_large(my_number, threshold = 100):
 - Unit tests should follow the Build-Operate-Check model where test data is built, then the function is operated, and finally the result is asserted against an expectation. Don’t add extra noise to tests
 - Test only a single concept per unit test
 - Don’t mock to make yourself feel better; mock because you have to. Mocks don't run real production code, they make believe and call it a test
+
+### Versioning
+
+- Major releases may include breaking changes, but only if every breaking change is documented as breaking in the CHANGELOG
+- Minor and patch releases never include breaking changes unless it has been explicitly decided otherwise
+- For unversioned services, discuss any breaking change before making it and lean towards backwards compatibility
+- Keep a CHANGELOG for every project and clearly label breaking entries (eg: `BREAKING:`)
+- Never pin CI actions or dependencies to commit SHAs. Use version tags or version numbers instead (eg: `actions/checkout@v4`)
 
 ## Language Specific
 
@@ -318,11 +350,13 @@ assert str(error.value) == 'You sent bad input'
 
 #### Shell Tools
 
+- **Formatter:** [shfmt](https://github.com/mvdan/sh)
 - **Linter:** [ShellCheck](https://github.com/koalaman/shellcheck)
 
 #### Shell Styles
 
 - Build shell scripts and tools for the largest compatible surface area possible, ensure they are POSIX compliant and able to not only run on the latest versions of Bash but also the oldest versions of `sh`, `dash`, or `ksh`
+- Shell scripts should be formatted with `shfmt -i 4` (4 space indentation) and pass ShellCheck at every severity level
 
 ### Swift
 
