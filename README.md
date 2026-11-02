@@ -135,7 +135,6 @@ def is_number_large(my_number, threshold = 100):
 
 - Use underscores in branch names, never slashes (eg: `add_new_feature`, not `feature/add-new-feature`). Some tooling breaks on `/` in branch names
 - Prefer SSH remotes for GitHub (eg: `git@github.com:user/repo.git`)
-- Never modify someone's global git config from a script or tool. Use per-command `git -c key=value` flags or environment variables instead
 
 ### Meta
 
