@@ -157,8 +157,7 @@ def is_number_large(my_number, threshold = 100):
 - Avoid words like `filter` when naming things because it can either mean `filter out` or `filter in`
 - Projects should be placed in a top-level `src` folder so that project config and documents can live outside the project folder
 - Target versions of a language back to the the oldest maintained version up through the newest version where possible. Drop support for versions of a language that no longer receive maintenance (security updates, etc) and adopt new versions as early as is feasible
-- Don't rename existing `make` or `just` targets, even for consistency across repos, since developers and automation rely on them. What a target does under the hood can change
-- Only the `install` target should print runtime info (eg: the Node version in use). Other targets such as `lint`, `test`, and `build` should stay quiet about it
+- Don't rename existing `make` or `just` targets since developers and automation rely on them. What a target does under the hood can change if the end-result behavior remains the same. This is true of function names or other public surfaces
 
 ### Naming
 
@@ -185,11 +184,11 @@ def is_number_large(my_number, threshold = 100):
 
 ### Versioning
 
-- Major releases may include breaking changes, but only if every breaking change is documented as breaking in the CHANGELOG
-- Minor and patch releases never include breaking changes unless it has been explicitly decided otherwise
-- For unversioned services, discuss any breaking change before making it and lean towards backwards compatibility
+- Major releases may include breaking changes, they must be documented as such
+- Minor and patch releases must not ever include breaking changes per semver
+- For unversioned services, discuss any breaking change before making it and lean towards backwards compatibility. Always communicate breaking changes to end-users
 - Keep a CHANGELOG for every project and clearly label breaking entries (eg: `BREAKING:`)
-- Never pin CI actions or dependencies to commit SHAs. Use version tags or version numbers instead (eg: `actions/checkout@v4`)
+- Don't pin CI actions or dependencies to commit SHAs. Use version tags or version numbers instead (eg: `actions/checkout@v7`)
 
 ## Language Specific
 
@@ -354,7 +353,7 @@ assert str(error.value) == 'You sent bad input'
 
 #### Shell Styles
 
-- Build shell scripts and tools for the largest compatible surface area possible, ensure they are POSIX compliant and able to not only run on the latest versions of Bash but also the oldest versions of `sh`, `dash`, or `ksh`
+- Build shell scripts and tools for the largest compatible surface area possible, ensure they are POSIX compliant and able to run on `sh` in addition to `bash`
 - Shell scripts should be formatted with `shfmt -i 4` (4 space indentation) and pass ShellCheck at every severity level
 
 ### Swift
