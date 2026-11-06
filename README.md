@@ -49,7 +49,7 @@ composer require --dev justintime50/styles
 - Ensure your code is self documenting (eg: function and variable names give a clear indicator to the reader of what is happening and what it is doing)
 - Ensure your code does not introduce side effects. Functions and classes should do one thing without bleeding into other areas
 - Ensure your change is as small and simple as it can be. Keep the diff focused: don't reformat unrelated code, don't add speculative hardening, and split unrelated changes into their own commits
-- Ensure the change doesn't pile on guardrails for fringe cases. A simple, optimized solution is easier to maintain than one that tries to defend against every edge case
+- Ensure you've written the least amount of code that gets the job done. Build for the happy path and only guard against failures that are likely to happen, not every possible edge case
 - Ensure workarounds used only to verify something locally (eg: skipping a step so a check passes) are never committed
 
 ### Classes
@@ -135,6 +135,8 @@ def is_number_large(my_number, threshold = 100):
 
 - Use underscores in branch names, never slashes (eg: `add_new_feature`, not `feature/add-new-feature`). Some tooling breaks on `/` in branch names
 - Prefer SSH remotes for GitHub (eg: `git@github.com:user/repo.git`)
+- Always use Conventional Commits (eg: `fix:`, `feat:`, `chore:`) for commit messages and PR titles
+- Keep issues, PR descriptions and comments short. If you can say the same with less, do. Only add detail to explain edge cases or oddities, or context that isn't readily available
 
 ### Meta
 
@@ -355,6 +357,9 @@ assert str(error.value) == 'You sent bad input'
 
 - Build shell scripts and tools for the largest compatible surface area possible, ensure they are POSIX compliant and able to run on `sh` in addition to `bash`
 - Shell scripts should be formatted with `shfmt -i 4` (4 space indentation) and pass ShellCheck at every severity level
+- Prefer simple, builtin unix commands and plain syntax over clever constructs. A boring script is easier to review and maintain
+- Use `set -eu` and let commands fail on their own instead of writing custom sanity checks. Mark failures that are acceptable with `|| true` (`/bin/true` does not exist on macOS)
+- Put each command on its own line. `set -e` doesn't stop on a failure early in an `&&` chain
 
 ### Swift
 
