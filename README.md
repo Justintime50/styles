@@ -186,6 +186,7 @@ def is_number_large(my_number, threshold = 100):
 - Don’t mock to make yourself feel better; mock because you have to. Mocks don't run real production code, they make believe and call it a test
 - Match the repo's test style. If a suite uses only recorded-cassette end-to-end tests, don't add unit tests
 - Don't add tests for a change that only exposes params, unless precedent in the repo says otherwise
+- Don't add tests for changes that only tweak static data (eg: trimming a list of supported values in a metadata app). Not every incantation of the data needs its own test
 
 ### Versioning
 
