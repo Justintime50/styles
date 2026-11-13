@@ -41,14 +41,14 @@ composer require --dev justintime50/styles
 ### Checklist
 
 - Ensure the code you are writing is `NULL` safe
-- Ensure the code you are writing either has a unit test (especially when you need to guard against a regression) or that you have end-to-end tested it. Preferably, you would do both
+- Ensure the code you are writing either has a unit test (especially when you need to guard against a regression) or that you have end-to-end tested it. Preferably, you would do both, when that matches the repo's existing test style
 - Ensure the code is readable, remember, you will have other contributors looking at this in the future, maybe even years later
   - Will it make sense then as it does now?
 - Ensure your code is easy to maintain. Can things be added to this easily, can we tweak the configuration if requirements change in the future, does it make sense enough that someone with no context could jump in later on and work on this?
 - Ensure your code preserves git blame (eg: Trailing commas, breaking up lists to different lines)
 - Ensure your code is self documenting (eg: function and variable names give a clear indicator to the reader of what is happening and what it is doing)
 - Ensure your code does not introduce side effects. Functions and classes should do one thing without bleeding into other areas
-- Ensure your change is as small and simple as it can be. Keep the diff focused: don't reformat unrelated code, don't add speculative hardening, and split unrelated changes into their own commits
+- Ensure your change is as small and simple as it can be. Keep the diff focused: don't reformat unrelated code, revert formatter churn in unrelated code unless it is explicitly accepted, don't add speculative hardening, and split unrelated changes into their own commits
 - Ensure you've written the least amount of code that gets the job done. Build for the happy path and only guard against failures that are likely to happen, not every possible edge case
 - Ensure workarounds used only to verify something locally (eg: skipping a step so a check passes) are never committed
 
@@ -144,12 +144,13 @@ def is_number_large(my_number, threshold = 100):
 - “Main” functions should be declared first in a file so that you can then keep reading from top to bottom as you drill down
 - Line lengths should not exceed 120 characters for readability
 - Use trailing commas where possible so that the list can easily grow in the future while keeping the next diff small
-- Create a consistent lexicon and share it across the company for things like names (eg: "fetch", "get", "retrieve" all ultimately mean the same thing, which will you use across your code base?). If you do something someway, do it that way everywhere. This leans back to the principle of least surprise
+- Consistency is key. Across projects and within a single codebase, if there's one way to do something, use it. If there are multiple ways to do the same thing, flatten them so there's only one solid, consistent way. Create a consistent lexicon and share it across the company for things like names (eg: "fetch", "get", "retrieve" all ultimately mean the same thing, which will you use across your code base?). This leans back to the principle of least surprise
 - Don’t pack lists or block pack them, always unpack lists so that each item is on its own line. It’s easier to read vertically than it is horizontally
 - Use object literals over complex if/else or switch/case statements
 - Use implicit true statements when possible (eg: `if im_awesome is True:` — vs — `if im_awesome:`)
 - When making string comparisons, lowercase/uppercase and strip the whitespace on the strings you are comparing
 - Always sort your lists unless there is an explicit reason not to. This ensures that diffs stay small and sorted lists are much easier to maintain and find info in
+- When adding fields, put options-style fields in alphabetical order and append other fields at the end. Don't add blank lines between new and existing fields
 - Positives are easier to understand than negatives, in the case of if/else statements, have the “if” section be the positive logic
 - Don’t include dead code. This could be code in an if/else block that will never be reached or code in a try/except block that can never throw
 - Don't include commented out code. It's never run, it bloates the software, and if it existed before and we are commenting out "for now", it still exists in git history. It should be removed
@@ -183,14 +184,17 @@ def is_number_large(my_number, threshold = 100):
 - Unit tests should follow the Build-Operate-Check model where test data is built, then the function is operated, and finally the result is asserted against an expectation. Don’t add extra noise to tests
 - Test only a single concept per unit test
 - Don’t mock to make yourself feel better; mock because you have to. Mocks don't run real production code, they make believe and call it a test
+- Match the repo's test style. If a suite uses only recorded-cassette end-to-end tests, don't add unit tests
+- Don't add tests for a change that only exposes params, unless precedent in the repo says otherwise
+- Don't add tests for changes that only tweak static data (eg: trimming a list of supported values in a metadata app). Not every incantation of the data needs its own test
 
 ### Versioning
 
 - Major releases may include breaking changes, they must be documented as such
 - Minor and patch releases must not ever include breaking changes per semver
 - For unversioned services, discuss any breaking change before making it and lean towards backwards compatibility. Always communicate breaking changes to end-users
-- Keep a CHANGELOG for every project and clearly label breaking entries (eg: `BREAKING:`)
-- Don't pin CI actions or dependencies to commit SHAs. Use version tags or version numbers instead (eg: `actions/checkout@v7`)
+- Keep a CHANGELOG for every project and clearly label breaking entries (eg: `BREAKING:`). Leave a blank line before the previous version's heading
+- Don't pin CI actions or dependencies to commit SHAs. Use version tags or version numbers instead (eg: `actions/checkout@v7`). When a scanner flags unpinned actions, leave those alerts as they are rather than pinning to SHAs to silence them
 
 ## Language Specific
 
@@ -360,6 +364,7 @@ assert str(error.value) == 'You sent bad input'
 - Prefer simple, builtin unix commands and plain syntax over clever constructs. A boring script is easier to review and maintain
 - Use `set -eu` and let commands fail on their own instead of writing custom sanity checks. Mark failures that are acceptable with `|| true` (`/bin/true` does not exist on macOS)
 - Put each command on its own line. `set -e` doesn't stop on a failure early in an `&&` chain
+- Install scripts should work on both a fresh machine and one with existing dotfiles, and must never leave a broken rc file
 
 ### Swift
 
