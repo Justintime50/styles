@@ -136,6 +136,8 @@ def is_number_large(my_number, threshold = 100):
 - Use underscores in branch names, never slashes (eg: `add_new_feature`, not `feature/add-new-feature`). Some tooling breaks on `/` in branch names
 - Prefer SSH remotes for GitHub (eg: `git@github.com:user/repo.git`)
 - Always use Conventional Commits (eg: `fix:`, `feat:`, `chore:`) for commit messages and PR titles
+- When a PR title references a ticket, keep the Conventional Commit type first and put the ticket key at the end (eg: `refactor!: upgrade to golangci-lint v2 (DOCS-936)`, not `DOCS-936: refactor!: ...`)
+- Never merge the default branch into a PR branch to update it. Rebase the PR branch onto the default branch instead, then force-push with lease
 - Keep issues, PR descriptions and comments short. If you can say the same with less, do. Only add detail to explain edge cases or oddities, or context that isn't readily available
 
 ### Meta
