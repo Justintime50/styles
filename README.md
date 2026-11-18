@@ -35,7 +35,6 @@ composer require --dev justintime50/styles
 - When creating software, assume you are creating it for someone else to use. Allow for configuration, use CLI flags/env vars where possible, document how to use your tool, use simple interfaces, and build it so that anyone can use it and not just you and your one use-case
   - Keep internal variables private, that way you can change their type or implementation on a whim. Make stable, consistent interfaces where users can then plug into. Not every variable needs a getter and setter
 - Use the Model, View, Controller framework (MVC), especially for frontend websites
-- Use the Singleton design pattern when possible
 - Routes -> Views/Actions -> Service -> Repo -> DB
 - Use frontend and backend validation, this is important because when you have both, we can skip sending an API call for instance when we know there is bad data. We will then only send the payload across once the data is valid. Backend validation is important as the source of truth and because things like developer tools in a browser can defeat frontend validations
 - Destructive commands (eg: cleanup or delete tools) should do a dry run by default and require an explicit `-f/--force` flag before deleting anything
@@ -115,7 +114,7 @@ Functions should follow the 1-2-3 principle:
 
 1. The first grouping of code (split by an empty newline) is usually boilerplate code or setup where we assign variables that we'll need later on
 2. The second grouping of code (split by an empty newline) is the logic where we actually do what the function is called
-3. The third grouping (split by an empty newline) should be the final return statement. Functions should also only return once at the end for easy maintenance and readability (TODO: provide research into this)
+3. The third grouping (split by an empty newline) should be the final return statement. Functions should also only return once at the end for easy maintenance and readability
 
 There are obviously larger and smaller functions than this, but don't be afraid of newlines in functions. I've seen countless 30 line functions that had no line breaks which can be very hard on the eyes when scanning or reasoning about code. Breaking up related blocks of code makes maintaining and reading that code much easier.
 
@@ -259,14 +258,13 @@ The following is a checklist of items that every website should have:
 - Site must have a Favicon
 - Site must show a well-formed `404 Page` when users visit a page that does not exist
 - Site must appropriately handle other `4xx` and `5xx` pages
-- Site must have `Google Analytics` or another method of analytics
+- Site must have a method of analytics
 - Site must use modularized pages (eg: nav/footer are their own components and can be reused)
 - Site must have a `meta author tag`
-- Site must have a `meta keyword tag` containing no duplicates
 - Site must have a `meta description tag`
 - Site must define a `language` in the `html` tag
 - Site must define a `meta character set` (eg: UTF-8)
-- Site must define a `robots.txt` file that whitelists all public pages (can use wildcard), and explicitly blacklist pages that should not be accessible
+- Site must define a `robots.txt` file that allowlists all public pages (can use wildcard), and explicitly blocklists pages that should not be accessible
 - Site must define `alt & title tags` on every image
 - Site must have a publicly available `Sitemap`
 
@@ -316,7 +314,7 @@ The following is a checklist of items that every website should have:
 #### Python Styles
 
 - You can't kill threads easily in Python, keep this in mind when playing with concurrency
-- Do not define raw paths, you must use the `os.path.join()` function as this will automatically build the paths for you depending on what OS you're on (eg: slashes on Windows)
+- Do not define raw paths. Prefer `pathlib` (eg: `Path(base) / "file.txt"`) over `os.path.join()`, as it builds the paths for you depending on what OS you're on (eg: slashes on Windows)
 - Use `datetime.timedelta` to offset a date which will automatically roll over months and years as needed. Do not add `+6` to a date or year as you will run into an error such as a month not being able to contain 35 days
 - "Mock an item where it is used, not where it came from."
 
@@ -360,7 +358,7 @@ assert str(error.value) == 'You sent bad input'
 - **Security:** [Brakeman](https://github.com/presidentbeef/brakeman)
 - **Tests:** [RSpec](https://github.com/rspec/rspec)
 
-### Shell (Bash)
+### Shell
 
 #### Shell Tools
 
