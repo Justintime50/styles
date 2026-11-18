@@ -92,6 +92,7 @@ composer require --dev justintime50/styles
 
 - Avoid "you" and "we" in documentation where possible. Prefer the imperative, then a named actor (eg: "users")
 - Don't enforce hard sentence-length limits; write as clearly as the content needs
+- Render code examples at 2-wide indentation (eg: `tab-size: 2` in the code-block theme) so code blocks stay narrow, including for languages that indent with tabs such as Go
 - Anchor links are not a contract. They are generated from headings and can change whenever a heading changes
 - Don't list versions that will drift in docs (eg: the Node version a project currently uses in a README). Decision records and comments explaining why a specific version is used can keep their version details
 
@@ -135,6 +136,7 @@ def is_number_large(my_number, threshold = 100):
 
 - Use underscores in branch names, never slashes (eg: `add_new_feature`, not `feature/add-new-feature`). Some tooling breaks on `/` in branch names
 - Prefer SSH remotes for GitHub (eg: `git@github.com:user/repo.git`)
+- Sign every commit (eg: with an SSH signing key) so it shows as Verified on GitHub. Never turn signing off to get a commit through
 - Always use Conventional Commits (eg: `fix:`, `feat:`, `chore:`) for commit messages and PR titles
 - When a PR title references a ticket, keep the Conventional Commit type first and put the ticket key at the end (eg: `refactor!: upgrade to golangci-lint v2 (DOCS-936)`, not `DOCS-936: refactor!: ...`)
 - Never merge the default branch into a PR branch to update it. Rebase the PR branch onto the default branch instead, then force-push with lease
@@ -162,6 +164,7 @@ def is_number_large(my_number, threshold = 100):
 - Avoid words like `filter` when naming things because it can either mean `filter out` or `filter in`
 - Projects should be placed in a top-level `src` folder so that project config and documents can live outside the project folder
 - Target versions of a language back to the the oldest maintained version up through the newest version where possible. Drop support for versions of a language that no longer receive maintenance (security updates, etc) and adopt new versions as early as is feasible
+- Script mechanical changes that touch more than 10 files and run the script once instead of hand-editing each file. Keep structural moves (renames, reordering) in separate commits from content or logic changes so each is easy to review
 - Don't rename existing `make` or `just` targets since developers and automation rely on them. What a target does under the hood can change if the end-result behavior remains the same. This is true of function names or other public surfaces
 
 ### Naming
